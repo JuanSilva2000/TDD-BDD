@@ -22,16 +22,14 @@ class TestAccountModel:
 
     @classmethod
     def setup_class(cls):
-        """Conectar y cargar los datos necesarios para las pruebas"""
         global ACCOUNT_DATA
         with open('tests/fixtures/account_data.json') as json_data:
             ACCOUNT_DATA = json.load(json_data)
-        print(f"ACCOUNT_DATA cargado: {ACCOUNT_DATA}")
-
+        
     @classmethod
     def teardown_class(cls):
         """Desconectar de la base de datos"""
-        pass  # Agrega cualquier acción de limpieza si es necesario
+        pass # Agrega cualquier acción de limpieza si es necesario
 
     def setup_method(self):
         """Truncar las tablas antes de cada prueba"""
@@ -42,9 +40,9 @@ class TestAccountModel:
         """Eliminar la sesión después de cada prueba"""
         db.session.remove()
 
-    ######################################################################
-    #  C A S O S   D E   P R U E B A
-    ######################################################################
+#     ######################################################################
+#     #  C A S O S   D E   P R U E B A
+#     ######################################################################
 
     def test_create_an_account(self):
         """Probar la creación de una sola cuenta"""
@@ -52,10 +50,11 @@ class TestAccountModel:
         account = Account(**data)
         account.create()
         assert len(Account.all()) == 1
-
+ 
     def test_create_all_accounts(self):
         """Probar la creación de múltiples cuentas"""
         for data in ACCOUNT_DATA:
             account = Account(**data)
             account.create()
         assert len(Account.all()) == len(ACCOUNT_DATA)
+
